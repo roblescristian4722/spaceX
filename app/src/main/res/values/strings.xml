@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">SpaceX</string>
+    <string name="app_name">SpaceXLaunches</string>
+    <string name="baseUrl">https://api.spacexdata.com/</string>
 </resources>
