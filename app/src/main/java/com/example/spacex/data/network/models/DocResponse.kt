@@ -1,4 +1,4 @@
-package com.example.spacex.data.network.responses
+package com.example.spacex.data.network.models
 
 import com.google.gson.annotations.SerializedName
 

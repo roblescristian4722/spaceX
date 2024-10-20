@@ -7,6 +7,7 @@ import com.example.spacex.data.network.impl.SpaceXImpl
 import com.example.spacex.ui.screens.launch_details.LaunchDetailsViewModel
 import com.example.spacex.ui.screens.launch_list.LaunchListViewModel
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.CoroutineExceptionHandler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -14,6 +15,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 
 const val TIMEOUT: Long = 10
@@ -49,7 +51,6 @@ fun provideRetrofit(
 fun provideService(retrofit: Retrofit): SpaceXDefinitions {
     return retrofit.create(SpaceXDefinitions::class.java)
 }
-
 
 val httpModule = module {
     single { provideHttpClient() }

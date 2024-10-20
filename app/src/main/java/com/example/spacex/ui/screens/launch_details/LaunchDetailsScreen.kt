@@ -15,7 +15,7 @@ fun LaunchDetailsScreen(navController: NavController) {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
     LaunchDetailsScreen(rememberNavController())

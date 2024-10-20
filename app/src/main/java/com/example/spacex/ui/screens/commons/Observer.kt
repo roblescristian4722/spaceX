@@ -9,6 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
+/**
+ * [ObserveAsEvents] is the composable function used in Screens for ScreenEvent
+ * detection
+ * @param flow is [BaseViewModel]'s [eventChannelFlow]
+ * @param onEvent is a lambda that identifies which Screen Event [T] has been
+ * called and takes an action based on it
+ */
 @Composable
 fun <T>ObserveAsEvents(flow: Flow<T>, onEvent: (T) -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
