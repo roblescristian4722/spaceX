@@ -1,13 +1,14 @@
 package com.example.spacex.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.spacex.R
+import com.example.spacex.data.db.AppDatabase
 import com.example.spacex.data.network.def.SpaceXDefinitions
 import com.example.spacex.data.network.impl.SpaceXImpl
 import com.example.spacex.ui.screens.launch_details.LaunchDetailsViewModel
 import com.example.spacex.ui.screens.launch_list.LaunchListViewModel
 import com.google.gson.GsonBuilder
-import kotlinx.coroutines.CoroutineExceptionHandler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -15,7 +16,6 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 
 const val TIMEOUT: Long = 10
@@ -52,6 +52,17 @@ fun provideService(retrofit: Retrofit): SpaceXDefinitions {
     return retrofit.create(SpaceXDefinitions::class.java)
 }
 
+val dbModule = module {
+    single {
+        Room.databaseBuilder(
+            androidContext().applicationContext ?: androidContext(),
+            AppDatabase::class.java,
+            "MainDatabase")
+            .build()
+            .launchesDao()
+    }
+}
+
 val httpModule = module {
     single { provideHttpClient() }
     single { provideConverterFactory() }
@@ -63,5 +74,5 @@ val httpModule = module {
 
 val viewModelModule = module {
     viewModel { LaunchDetailsViewModel(get()) }
-    viewModel { LaunchListViewModel(get()) }
+    viewModel { LaunchListViewModel(get(), get()) }
 }

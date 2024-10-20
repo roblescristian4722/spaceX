@@ -1,6 +1,7 @@
 package com.example.spacex
 
 import android.app.Application
+import com.example.spacex.di.dbModule
 
 import com.example.spacex.di.httpModule
 import com.example.spacex.di.viewModelModule
@@ -15,7 +16,7 @@ class SpaceXLaunchesApplication: Application() {
         startKoin {
             androidLogger()
             androidContext(this@SpaceXLaunchesApplication)
-            modules(viewModelModule, httpModule)
+            modules(viewModelModule, httpModule, dbModule)
         }
     }
 }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -68,7 +69,8 @@ dependencies {
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.koin.compose.viewmodel.navigation)
     // DB
-    implementation(libs.room)
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
     // UI
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui)
