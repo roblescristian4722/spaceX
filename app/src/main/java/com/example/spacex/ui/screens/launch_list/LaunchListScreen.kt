@@ -6,12 +6,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -89,10 +90,21 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
                 CircularProgressIndicator()
             } else {
                 if (items.isNotEmpty()) {
-                    LazyColumn (Modifier.safeContentPadding()
-                    ) {
-                        items(items) { item ->
-                            LaunchListItemScreen(item)
+                    Scaffold(
+                        Modifier.padding(start = 5.dp, end = 5.dp),
+                        topBar = {
+                            TopAppBar(title = {
+                                Text("SpaceX Launches")
+                            })
+                        }
+                    ) { innerPadding ->
+                        LazyColumn (
+                            Modifier.padding(innerPadding),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            items(items) { item ->
+                                LaunchListItemScreen(navController, item)
+                            }
                         }
                     }
                 } else {
