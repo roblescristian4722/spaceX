@@ -44,8 +44,8 @@ BaseViewModel<LaunchListScreenEvent>() {
                                 wikipedia = doc.links.wikipedia,
                                 article = doc.links.article)
                             db.insertAll(launch)
-                            _launches.value = db.getAll()
                         }
+                        _launches.value = db.getAll()
                     }
                     .onFailure {
                         Alert("Couldn't fetch data")
