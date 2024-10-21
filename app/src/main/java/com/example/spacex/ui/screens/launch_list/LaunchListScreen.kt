@@ -91,7 +91,6 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
             } else {
                 if (items.isNotEmpty()) {
                     Scaffold(
-                        Modifier.padding(start = 5.dp, end = 5.dp),
                         topBar = {
                             TopAppBar(title = {
                                 Text("SpaceX Launches")
