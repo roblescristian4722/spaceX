@@ -8,6 +8,7 @@ import com.example.spacex.data.network.def.SpaceXDefinitions
 import com.example.spacex.data.network.impl.SpaceXImpl
 import com.example.spacex.ui.screens.launch_details.LaunchDetailsViewModel
 import com.example.spacex.ui.screens.launch_list.LaunchListViewModel
+import com.example.spacex.ui.screens.launch_list_item.LaunchListItemViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -75,4 +76,5 @@ val httpModule = module {
 val viewModelModule = module {
     viewModel { LaunchDetailsViewModel(get()) }
     viewModel { LaunchListViewModel(get(), get()) }
+    viewModel { LaunchListItemViewModel(get()) }
 }

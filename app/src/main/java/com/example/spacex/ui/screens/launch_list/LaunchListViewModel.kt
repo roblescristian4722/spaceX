@@ -23,6 +23,17 @@ BaseViewModel<LaunchListScreenEvent>() {
     private val _launches = MutableStateFlow<List<LaunchesEntity>>(listOf())
     val launches = _launches.asStateFlow()
 
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
+    fun enableLoadingScreen() {
+        _loading.value = true
+    }
+
+    fun disableLoadingScreen() {
+        _loading.value = false
+    }
+
     fun fetchData() {
         viewModelScope.launch {
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
@@ -46,6 +57,7 @@ BaseViewModel<LaunchListScreenEvent>() {
                             db.insertAll(launch)
                         }
                         _launches.value = db.getAll()
+                        postEvent(LaunchListScreenEvent.FinishedFetchingData)
                     }
                     .onFailure {
                         Alert("Couldn't fetch data")
