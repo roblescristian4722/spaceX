@@ -22,14 +22,9 @@ import java.util.concurrent.TimeUnit
 const val TIMEOUT: Long = 10
 
 fun provideHttpClient(): OkHttpClient {
-    val interceptor = HttpLoggingInterceptor().apply {
-        // TODO: QUITAR
-        this.level = HttpLoggingInterceptor.Level.BODY
-    }
     return OkHttpClient.Builder()
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-        .addInterceptor(interceptor)
         .build()
 }
 
@@ -76,5 +71,5 @@ val httpModule = module {
 val viewModelModule = module {
     viewModel { LaunchDetailsViewModel(get()) }
     viewModel { LaunchListViewModel(get(), get()) }
-    viewModel { LaunchListItemViewModel(get()) }
+    viewModel { LaunchListItemViewModel() }
 }
