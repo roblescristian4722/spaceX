@@ -76,6 +76,9 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.constraintLayout)
+    implementation(libs.coil)
+    implementation(libs.coil.network)
     // Testing
     androidTestImplementation(libs.androidx.junit)
     testImplementation(libs.junit)

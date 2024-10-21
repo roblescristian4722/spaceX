@@ -11,6 +11,8 @@ import com.example.spacex.ui.screens.commons.BaseViewModel
 import com.example.spacex.utils.Alert
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LaunchListViewModel(
@@ -18,26 +20,35 @@ class LaunchListViewModel(
     private val db: LaunchesDao):
 BaseViewModel<LaunchListScreenEvent>() {
 
-    fun onSomething() {
+    private val _launches = MutableStateFlow<List<LaunchesEntity>>(listOf())
+    val launches = _launches.asStateFlow()
+
+    fun fetchData() {
         viewModelScope.launch {
-            Alert("doing something")
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
                 httpClient.getLaunches()
                     .onSuccess { res ->
                         res as SpaceXResponse
                         db.deleteAll()
-                        db.insertAll(LaunchesEntity(
-                            flightName = "asdfñlkj",
-                            flightId = 1,
-                            missionName = "asdñflkj",
-                            rocketName = "asdñflkj",
-                            rocketType = "asdfñklj",
-                            flightDetails = "asdñflkj"))
-                        val launch = db.getByFlightIds(intArrayOf(1))
-                        Alert("launch: $launch")
+                        res.docs.forEach { doc ->
+                            val launch = LaunchesEntity(
+                                missionName = doc.launchName,
+                                flightId = doc.flightNumber,
+                                rocketName = doc.rocket.name,
+                                rocketType = doc.payloads.first().type,
+                                flightDetails = doc.details,
+                                launchSite = doc.launchpad.name,
+                                smallPatch = doc.links.patch.small,
+                                largePatch = doc.links.patch.large,
+                                ytWebcast = doc.links.webcast,
+                                wikipedia = doc.links.wikipedia,
+                                article = doc.links.article)
+                            db.insertAll(launch)
+                            _launches.value = db.getAll()
+                        }
                     }
                     .onFailure {
-                        Alert("Failure")
+                        Alert("Couldn't fetch data")
                     }
             }
         }

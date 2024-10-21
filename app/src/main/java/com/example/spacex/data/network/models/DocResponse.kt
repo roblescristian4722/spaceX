@@ -7,6 +7,11 @@ data class DocResponse(
     @SerializedName("flight_number") val flightNumber: Int = 0,
     @SerializedName("name") val launchName: String = "",
     @SerializedName("rocket") val rocket: RocketResponse = RocketResponse(),
-    @SerializedName("details") val details: String = "",
+    @SerializedName("links") val links: LinksResponse = LinksResponse(),
+    @SerializedName("payloads") val payloads: List<PayloadsResponse> =
+        listOf(),
+    @SerializedName("launchpad") val launchpad: LaunchpadResponse =
+        LaunchpadResponse(),
+    @SerializedName("details") val details: String? = "",
     @SerializedName("success") val success: Boolean = false,
 )
