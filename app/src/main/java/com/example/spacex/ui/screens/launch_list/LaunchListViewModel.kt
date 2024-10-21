@@ -9,11 +9,13 @@ import com.example.spacex.data.network.impl.onSuccess
 import com.example.spacex.data.network.models.SpaceXResponse
 import com.example.spacex.ui.screens.commons.BaseViewModel
 import com.example.spacex.utils.Alert
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class LaunchListViewModel(
     private val httpClient: SpaceXImpl,
@@ -26,12 +28,34 @@ BaseViewModel<LaunchListScreenEvent>() {
     private val _loading = MutableStateFlow(false)
     val loading = _loading.asStateFlow()
 
+    private val _pullRefreshLoading = MutableStateFlow(false)
+    val pullRefreshLoading = _pullRefreshLoading.asStateFlow()
+
     fun enableLoadingScreen() {
         _loading.value = true
     }
 
+    fun enablePullRefreshLoading() {
+        _pullRefreshLoading.value = true
+    }
+
     fun disableLoadingScreen() {
         _loading.value = false
+        _pullRefreshLoading.value = false
+    }
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
+        viewModelScope.launch {
+            when (throwable) {
+                is UnknownHostException -> {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        _launches.value = db.getAll()
+                        postEvent(LaunchListScreenEvent.FinishedFetchingData)
+                    }
+                }
+            }
+            throwable.printStackTrace()
+        }
     }
 
     fun fetchData() {

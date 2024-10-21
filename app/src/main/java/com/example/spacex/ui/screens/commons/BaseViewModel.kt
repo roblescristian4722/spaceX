@@ -30,7 +30,7 @@ open class BaseViewModel<T>: ViewModel() {
         }
     }
 
-    val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
+    val defaultCoroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
         viewModelScope.launch {
             when (throwable) {
                 is UnknownHostException -> {
@@ -40,5 +40,4 @@ open class BaseViewModel<T>: ViewModel() {
             throwable.printStackTrace()
         }
     }
-
 }
