@@ -1,6 +1,5 @@
 package com.example.spacex.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,16 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Blue80,
+    secondary = Blue40,
+    tertiary = Blue20,
+    background = Blue20,
+    onPrimary = onBlue80,
+    onSecondary = onBlue40
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
+    primary = Blue80,
+    secondary = Blue40,
+    tertiary = Blue20,
+    background = Blue20,
+    onPrimary = onBlue80,
+    onSecondary = onBlue40
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
@@ -53,6 +57,6 @@ fun SpaceXTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

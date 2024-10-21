@@ -1,5 +1,6 @@
 package com.example.spacex.ui.screens.launch_list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,9 +11,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -80,6 +83,7 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) {
         PullToRefreshBox (
             state = pullRefreshState,
@@ -91,10 +95,16 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
             } else {
                 if (items.isNotEmpty()) {
                     Scaffold(
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background),
                         topBar = {
                             TopAppBar(title = {
                                 Text("SpaceX Launches")
-                            })
+                            },
+                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                titleContentColor = MaterialTheme.colorScheme.onSecondary
+                            ))
                         }
                     ) { innerPadding ->
                         LazyColumn (

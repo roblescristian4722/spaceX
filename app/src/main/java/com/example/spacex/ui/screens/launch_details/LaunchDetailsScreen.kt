@@ -1,11 +1,21 @@
 package com.example.spacex.ui.screens.launch_details
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,11 +23,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.spacex.R
@@ -53,18 +63,50 @@ fun ComposableView(id: Int, details: LaunchesEntity) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Flight $id")
-                }
+                    Text("Flight $id Details")
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onSecondary
+                )
             )
-        }
+        },
     ) { innerPadding ->
-        ConstraintLayout(Modifier
-            .padding(innerPadding)) {
-            AsyncImage(modifier = Modifier
-                .size(100.dp),
-                model = details.largePatch,
-                contentDescription = "Launch patch",
-                placeholder = painterResource(R.drawable.ic_launcher_background))
+        val dataRows = listOf(
+            "Mission" to details.missionName,
+            "Rocket name" to details.rocketName,
+            "Rocket type" to details.rocketType,
+            "Launch site" to details.launchSite,
+            "Flight details" to details.flightDetails
+        )
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(innerPadding)
+            .height(900.dp)
+            .background(MaterialTheme.colorScheme.background),
+        ) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                item {
+                    Box(modifier = Modifier
+                        .fillParentMaxWidth()
+                        .height(220.dp)) {
+                        AsyncImage(modifier = Modifier
+                            .size(180.dp)
+                            .align(Alignment.Center),
+                            model = details.largePatch,
+                            contentDescription = "",
+                            placeholder = painterResource(R.drawable.ic_launcher_background)
+                        )
+                    }
+                }
+                itemsIndexed(dataRows) { index, item ->
+                    DataRow(item.first, item.second ?: "N/A", if (index == dataRows.size - 1) 500.dp else 40.dp)
+                }
+                item {
+
+                }
+            }
         }
     }
 }

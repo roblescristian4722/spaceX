@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,12 +46,14 @@ fun LaunchListItemScreen(navController: NavController,item: LaunchesEntity) {
 @Composable
 fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
     Surface(modifier = Modifier.height(120.dp),
-        onClick = { onClick(item.flightId) }) {
+        onClick = { onClick(item.flightId) },
+        color = Color.Transparent) {
         ConstraintLayout (Modifier
             .fillMaxWidth()
-            .padding(start = 10.dp, end = 10.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 2.dp)
             .clip(RoundedCornerShape(20.dp))
-            .background(Color.LightGray)) {
+            .background(MaterialTheme.colorScheme.secondary)
+            ) {
             val (image, flightId, missionName, rocketName, rocketType, launchSite) = createRefs()
             AsyncImage(
                 modifier = Modifier
@@ -67,7 +70,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
             Text(
                 modifier = Modifier
                     .constrainAs(flightId) {
-                        top.linkTo(parent.top, 40.dp)
+                        top.linkTo(parent.top, 20.dp)
                         start.linkTo(image.end, 20.dp)
                         bottom.linkTo(missionName.top)
                     },
@@ -109,7 +112,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                     .constrainAs(launchSite) {
                         top.linkTo(rocketName.bottom)
                         start.linkTo(image.end, 20.dp)
-                        bottom.linkTo(parent.bottom, 40.dp)
+                        bottom.linkTo(parent.bottom, 20.dp)
                     },
                 text = item.launchSite,
                 fontSize = 12.sp
