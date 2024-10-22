@@ -71,7 +71,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                     },
                 model = item.smallPatch,
                 contentDescription = "Mission patch",
-                placeholder = painterResource(R.drawable.ic_launcher_background)
+                placeholder = painterResource(R.drawable.baseline_downloading_24)
             )
             Text(
                 modifier = Modifier

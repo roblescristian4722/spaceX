@@ -115,12 +115,19 @@ fun ComposableView(id: Int, details: LaunchesEntity, ytCall: () -> Unit, urlCall
                             .align(Alignment.Center),
                             model = details.largePatch,
                             contentDescription = "",
-                            placeholder = painterResource(R.drawable.ic_launcher_background)
+                            placeholder = painterResource(R.drawable.baseline_downloading_24)
                         )
                     }
                 }
                 itemsIndexed(dataRows) { index, item ->
-                    DataRow(item.first, item.second ?: "N/A", if (index == dataRows.size - 1) 500.dp else 40.dp)
+                    val content = item.second ?: "N/A"
+                    if (content.length > 70) {
+                        DataRow(item.first, item.second ?: "N/A", 350.dp, true)
+                    } else if (index == dataRows.size - 1) {
+                        DataRow(item.first, item.second ?: "N/A", 80.dp, false)
+                    } else {
+                        DataRow(item.first, item.second ?: "N/A", 40.dp, false)
+                    }
                 }
                 item {
                     LazyRow(modifier = Modifier
