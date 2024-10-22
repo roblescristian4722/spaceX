@@ -34,7 +34,7 @@ class LaunchDetailsViewModel(
             val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webcast))
-            appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             try {
                 context.startActivity(appIntent)
             } catch (ex: ActivityNotFoundException) {
