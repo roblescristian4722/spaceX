@@ -123,17 +123,17 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
                         }
                     }
                 } else {
-                        LazyColumn(Modifier.fillMaxSize()) {
-                            item {
-                                Text(text = "No data available, " +
-                                        "connect to the internet and pull to refresh",
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .fillParentMaxSize()
-                                        .wrapContentHeight(align = Alignment.CenterVertically)
-                                        .padding(start = 20.dp, end = 20.dp))
-                            }
+                    LazyColumn(Modifier.fillMaxSize()) {
+                        item {
+                            Text(text = "No data available, " +
+                                    "connect to the internet and pull to refresh",
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillParentMaxSize()
+                                    .wrapContentHeight(align = Alignment.CenterVertically)
+                                    .padding(start = 20.dp, end = 20.dp))
                         }
+                    }
                 }
             }
         }

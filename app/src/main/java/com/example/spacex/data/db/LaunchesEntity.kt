@@ -16,6 +16,7 @@ data class LaunchesEntity(
     @ColumnInfo(name = "small_patch") val smallPatch: String? = "",
     @ColumnInfo(name = "large_patch") val largePatch: String? = "",
     @ColumnInfo(name = "yt_webcast") val ytWebcast: String? = "",
+    @ColumnInfo(name = "yt_id") val ytId: String? = "",
     @ColumnInfo(name = "wikipedia") val wikipedia: String? = "",
     @ColumnInfo(name = "article") val article: String? = ""
 )

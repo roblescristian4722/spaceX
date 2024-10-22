@@ -69,7 +69,7 @@ val httpModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { LaunchDetailsViewModel(get()) }
+    viewModel { LaunchDetailsViewModel(androidContext(), get()) }
     viewModel { LaunchListViewModel(get(), get()) }
     viewModel { LaunchListItemViewModel() }
 }

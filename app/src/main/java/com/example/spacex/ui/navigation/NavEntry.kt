@@ -17,7 +17,7 @@ fun NavEntry() {
             LaunchListScreen(navController)
         }
         composable(route = NavScreens.DetailsScreen.route) { entry ->
-            LaunchDetailsScreen(navController, entry.arguments?.getString("id")?.toInt())
+            LaunchDetailsScreen(entry.arguments?.getString("id")?.toInt())
         }
     }
 }

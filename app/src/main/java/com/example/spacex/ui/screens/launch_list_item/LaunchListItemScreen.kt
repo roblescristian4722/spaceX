@@ -1,6 +1,8 @@
 package com.example.spacex.ui.screens.launch_list_item
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -51,9 +53,13 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
         ConstraintLayout (Modifier
             .fillMaxWidth()
             .padding(start = 10.dp, end = 10.dp, top = 2.dp)
-            .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondary)
-            ) {
+            .border(
+                border = BorderStroke(2.dp, Color.Black),
+                shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp, topEnd = 10.dp)
+            )
+            .clip(RoundedCornerShape(bottomStart = 10.dp, topEnd = 10.dp, bottomEnd = 10.dp))
+            .background(MaterialTheme.colorScheme.secondary),
+        ) {
             val (image, flightId, missionName, rocketName, rocketType, launchSite) = createRefs()
             AsyncImage(
                 modifier = Modifier
@@ -123,8 +129,8 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
     }
 }
 
-@Preview()
+@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     ComposableView(LaunchesEntity()) {}
 }

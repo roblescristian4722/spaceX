@@ -76,6 +76,7 @@ BaseViewModel<LaunchListScreenEvent>() {
                                 smallPatch = doc.links.patch.small,
                                 largePatch = doc.links.patch.large,
                                 ytWebcast = doc.links.webcast,
+                                ytId = doc.links.youtubeId,
                                 wikipedia = doc.links.wikipedia,
                                 article = doc.links.article)
                             db.insertAll(launch)
