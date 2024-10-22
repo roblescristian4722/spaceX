@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ import coil3.compose.AsyncImage
 import com.example.spacex.R
 import com.example.spacex.data.db.LaunchesEntity
 import com.example.spacex.ui.screens.commons.ObserveAsEvents
+import com.example.spacex.utils.TestTags
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -47,7 +49,9 @@ fun LaunchListItemScreen(navController: NavController,item: LaunchesEntity) {
 
 @Composable
 fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
-    Surface(modifier = Modifier.height(120.dp),
+    Surface(modifier = Modifier
+        .testTag(TestTags.LAUNCH_LIST_ITEM_SCREEN)
+        .height(120.dp),
         onClick = { onClick(item.flightId) },
         color = Color.Transparent) {
         ConstraintLayout (Modifier

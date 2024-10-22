@@ -17,7 +17,7 @@ coroutinesVersion = "1.9.0"
 logIntVersion = "4.8.1"
 coilVersion = "3.0.0-rc01"
 constraintLayoutVersion = "1.0.1"
-junitJunit = "4.12"
+navigationTestingVersion = "2.8.3"
 
 [libraries]
 # Core
@@ -43,7 +43,6 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-material = { group = "androidx.compose.material", name = "material" }
 constraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayoutVersion" }
 coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilVersion" }
 coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilVersion" }
@@ -57,7 +56,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-test-navigation = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTestingVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

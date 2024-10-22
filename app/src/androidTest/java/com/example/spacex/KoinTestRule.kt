@@ -1,4 +1,4 @@
-package com.example.spacex.ui.screens.launch_list_item
+package com.example.spacex
 
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.rules.TestWatcher

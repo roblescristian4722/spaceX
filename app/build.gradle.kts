@@ -70,14 +70,12 @@ dependencies {
     implementation(libs.koin.compose.viewmodel.navigation)
     // DB
     implementation(libs.room.runtime)
-    testImplementation(libs.junit.junit)
     kapt(libs.room.compiler)
     // UI
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material)
     implementation(libs.constraintLayout)
     implementation(libs.coil)
     implementation(libs.coil.network)
@@ -90,4 +88,5 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
+    androidTestImplementation(libs.androidx.test.navigation)
 }

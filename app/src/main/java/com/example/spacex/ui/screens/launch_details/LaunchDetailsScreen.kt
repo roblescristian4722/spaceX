@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,8 @@ import coil3.compose.AsyncImage
 import com.example.spacex.R
 import com.example.spacex.data.db.LaunchesEntity
 import com.example.spacex.ui.screens.commons.ObserveAsEvents
+import com.example.spacex.utils.Alert
+import com.example.spacex.utils.TestTags
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -78,7 +81,8 @@ fun LaunchDetailsScreen(id: Int?) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComposableView(id: Int, details: LaunchesEntity, ytCall: () -> Unit, urlCall: (String) -> Unit) {
-    Scaffold(
+    Scaffold(modifier = Modifier
+        .testTag(TestTags.DETAILS_ITEM_SCREEN),
         topBar = {
             TopAppBar(
                 title = {
@@ -121,6 +125,7 @@ fun ComposableView(id: Int, details: LaunchesEntity, ytCall: () -> Unit, urlCall
                 }
                 itemsIndexed(dataRows) { index, item ->
                     val content = item.second ?: "N/A"
+                    Alert("index: $index")
                     if (content.length > 70) {
                         DataRow(item.first, item.second ?: "N/A", 350.dp, true)
                     } else if (index == dataRows.size - 1) {
