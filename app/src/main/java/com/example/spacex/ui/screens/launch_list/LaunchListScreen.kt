@@ -132,6 +132,7 @@ private fun LoadedItems(navController: NavController, items: List<LaunchesEntity
                 Text(text = "No data available, " +
                         "connect to the internet and pull to refresh",
                     textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
                         .fillParentMaxSize()
                         .wrapContentHeight(align = Alignment.CenterVertically)
