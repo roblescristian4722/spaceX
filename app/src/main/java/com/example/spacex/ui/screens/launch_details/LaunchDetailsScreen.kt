@@ -41,6 +41,11 @@ import com.example.spacex.utils.Alert
 import com.example.spacex.utils.TestTags
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * [LaunchDetailsScreen] loads every state and data provided by
+ * [LaunchDetailsViewModel] and creates an Observer for
+ * [LaunchDetailsScreenEvent]
+ */
 @Composable
 fun LaunchDetailsScreen(id: Int?) {
     val viewModel = koinViewModel<LaunchDetailsViewModel>()
@@ -78,6 +83,10 @@ fun LaunchDetailsScreen(id: Int?) {
     ComposableView(id ?: -1, details ?: LaunchesEntity(), ytCall, urlCall)
 }
 
+/**
+ * [ComposableView] is the main composable that takes all the data loaded by
+ * [LaunchDetailsScreen] and renders the screen
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComposableView(id: Int, details: LaunchesEntity, ytCall: () -> Unit, urlCall: (String) -> Unit) {
@@ -177,6 +186,9 @@ fun ComposableView(id: Int, details: LaunchesEntity, ytCall: () -> Unit, urlCall
     }
 }
 
+/**
+ * [DefaultPreview] for [LaunchDetailsScreen], is only used for Compose Preview
+ */
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {

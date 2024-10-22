@@ -30,6 +30,11 @@ import com.example.spacex.ui.screens.commons.ObserveAsEvents
 import com.example.spacex.utils.TestTags
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * [LaunchListItemScreen] loads every state and data provided by
+ * [LaunchListItemViewModel] and creates an Observer for
+ * [LaunchListItemScreenEvent]
+ */
 @Composable
 fun LaunchListItemScreen(navController: NavController,item: LaunchesEntity) {
     val viewModel = koinViewModel<LaunchListItemViewModel>()
@@ -47,6 +52,10 @@ fun LaunchListItemScreen(navController: NavController,item: LaunchesEntity) {
     ComposableView(item, onClick)
 }
 
+/**
+ * [ComposableView] is the main composable that takes all the data loaded by
+ * [LaunchListItemScreen] and renders the screen
+ */
 @Composable
 fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
     Surface(modifier = Modifier
@@ -85,6 +94,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                         bottom.linkTo(missionName.top)
                     },
                 text = "Flight ${item.flightId}",
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 12.sp
             )
             Text(
@@ -95,6 +105,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                         bottom.linkTo(rocketName.top)
                     },
                 text = "Mission ${item.missionName}",
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 14.sp
             )
             Text(
@@ -105,6 +116,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                         bottom.linkTo(launchSite.top)
                     },
                 text = "Rocket ${item.rocketName}",
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 12.sp
             )
             Text(
@@ -115,6 +127,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                         start.linkTo(rocketName.end, 2.dp)
                     },
                 text = "- ${item.rocketType}",
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 12.sp
             )
             Text(
@@ -125,6 +138,7 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
                         bottom.linkTo(parent.bottom, 20.dp)
                     },
                 text = item.launchSite,
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 12.sp
             )
             createVerticalChain(
@@ -133,6 +147,9 @@ fun ComposableView(item: LaunchesEntity, onClick: (Int) -> Unit) {
     }
 }
 
+/**
+ * [DefaultPreview] for [LaunchListItemScreen], is only used for Compose Preview
+ */
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {

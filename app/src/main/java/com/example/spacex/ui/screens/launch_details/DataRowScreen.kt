@@ -28,6 +28,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.spacex.utils.TestTags
 
+/**
+ * [DataRow] is the main composable that renders the screen
+ */
 @Composable
 fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
     LazyRow (
@@ -61,6 +64,7 @@ fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
                         .wrapContentHeight(align = Alignment.CenterVertically),
                     textAlign = TextAlign.Center,
                     text = header,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 16.sp
                 )
                 if (scrollable) {
@@ -75,8 +79,8 @@ fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
                         .clip(RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp))
                         .background(MaterialTheme.colorScheme.secondary)
                         .padding(start = 10.dp, end = 10.dp)
-                        .wrapContentHeight(align = Alignment.CenterVertically)
-                        .height(height),
+                        .height(height)
+                        .wrapContentHeight(align = Alignment.CenterVertically),
                         userScrollEnabled = scrollable) {
                         item {
                             Text(modifier = Modifier
@@ -84,6 +88,7 @@ fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
                                 .wrapContentHeight(align = Alignment.CenterVertically)
                                 .height(1000.dp),
                                 text = content,
+                                color = MaterialTheme.colorScheme.onSecondary,
                                 fontSize = 14.sp
                             )
                         }
@@ -100,9 +105,10 @@ fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
                         .clip(RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp))
                         .background(MaterialTheme.colorScheme.secondary)
                         .padding(start = 10.dp, end = 10.dp)
-                        .wrapContentHeight(align = Alignment.CenterVertically)
-                        .height(height),
+                        .height(height)
+                        .wrapContentHeight(align = Alignment.CenterVertically),
                         text = content,
+                        color = MaterialTheme.colorScheme.onSecondary,
                         fontSize = 14.sp
                     )
                 }
@@ -111,7 +117,10 @@ fun DataRow(header: String, content: String, height: Dp, scrollable: Boolean) {
     }
 }
 
-@Preview
+/**
+ * [DefaultPreview] for [DataRow], is only used for Compose Preview
+ */
+@Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
     DataRow("", "", 40.dp, false)

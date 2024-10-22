@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -42,6 +43,10 @@ import com.example.spacex.ui.screens.commons.ObserveAsEvents
 import com.example.spacex.ui.screens.launch_list_item.LaunchListItemScreen
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * [LaunchListScreen] loads every state and data provided by
+ * [LaunchListViewModel] and creates an Observer for [LaunchListScreenEvent]
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LaunchListScreen(navController: NavController) {
@@ -78,6 +83,68 @@ fun LaunchListScreen(navController: NavController) {
     ComposableView(navController, launches, loading, pullRefreshState, pullRefreshLoading, onRefresh)
 }
 
+@Composable
+private fun GetScrollableByOrientation(navController: NavController,
+                               items: List<LaunchesEntity>, orientation: Int,
+                               innerPadding: PaddingValues) {
+    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        LazyVerticalGrid(modifier = Modifier.padding(innerPadding),
+            columns = GridCells.Adaptive(minSize = 300.dp)) {
+            items(items) { item ->
+                LaunchListItemScreen(navController, item)
+            }
+        }
+    } else {
+        LazyColumn (modifier = Modifier.padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(items) { item ->
+                LaunchListItemScreen(navController, item)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun LoadedItems(navController: NavController, items: List<LaunchesEntity>) {
+    if (items.isNotEmpty()) {
+        Scaffold(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background),
+            topBar = {
+                TopAppBar(title = {
+                    Text("SpaceX Launches")
+                },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.onSecondary
+                    ))
+            }
+        ) { innerPadding ->
+            GetScrollableByOrientation(
+                navController, items,
+                LocalConfiguration.current.orientation, innerPadding)
+        }
+    } else {
+        LazyColumn(Modifier.fillMaxSize()) {
+            item {
+                Text(text = "No data available, " +
+                        "connect to the internet and pull to refresh",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillParentMaxSize()
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .padding(start = 20.dp, end = 20.dp))
+            }
+        }
+    }
+}
+
+/**
+ * [ComposableView] is the main composable that takes all the data loaded by
+ * [LaunchListScreen] and renders the screen
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
@@ -95,6 +162,7 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
             isRefreshing = pullRefreshLoading,
             onRefresh = onRefresh,
         ) {
+            // When items are loading and pull refresh hasn't get called
             if (loading && !pullRefreshLoading) {
                 Column (modifier = Modifier
                     .fillMaxSize(),
@@ -103,59 +171,21 @@ fun ComposableView(navController: NavController, items: List<LaunchesEntity>,
                 ) {
                     CircularProgressIndicator()
                 }
+            // When items got loaded
             } else {
-                if (items.isNotEmpty()) {
-                    Scaffold(
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background),
-                        topBar = {
-                            TopAppBar(title = {
-                                Text("SpaceX Launches")
-                            },
-                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                titleContentColor = MaterialTheme.colorScheme.onSecondary
-                            ))
-                        }
-                    ) { innerPadding ->
-                        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                            LazyVerticalGrid(modifier = Modifier.padding(innerPadding),
-                                columns = GridCells.Adaptive(minSize = 300.dp)) {
-                                items(items) { item ->
-                                    LaunchListItemScreen(navController, item)
-                                }
-                            }
-                        } else {
-                            LazyColumn (modifier = Modifier.padding(innerPadding),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                items(items) { item ->
-                                    LaunchListItemScreen(navController, item)
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    LazyColumn(Modifier.fillMaxSize()) {
-                        item {
-                            Text(text = "No data available, " +
-                                    "connect to the internet and pull to refresh",
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillParentMaxSize()
-                                    .wrapContentHeight(align = Alignment.CenterVertically)
-                                    .padding(start = 20.dp, end = 20.dp))
-                        }
-                    }
-                }
+                LoadedItems(navController, items)
             }
         }
     }
 }
 
+/**
+ * [DefaultPreview] for [LaunchListScreen], is only used for Compose Preview
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
-    ComposableView(rememberNavController(), listOf(), false, rememberPullToRefreshState(), false) {}
+    ComposableView(rememberNavController(), listOf(), false,
+            rememberPullToRefreshState(), false) {}
 }
