@@ -17,6 +17,7 @@ coroutinesVersion = "1.9.0"
 logIntVersion = "4.8.1"
 coilVersion = "3.0.0-rc01"
 constraintLayoutVersion = "1.0.1"
+junitJunit = "4.12"
 
 [libraries]
 # Core
@@ -56,6 +57,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

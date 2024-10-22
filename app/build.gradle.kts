@@ -15,7 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.spacex.InstrumentationTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.koin.compose.viewmodel.navigation)
     // DB
     implementation(libs.room.runtime)
+    testImplementation(libs.junit.junit)
     kapt(libs.room.compiler)
     // UI
     implementation(libs.androidx.ui.graphics)

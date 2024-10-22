@@ -49,10 +49,9 @@ fun provideService(retrofit: Retrofit): SpaceXDefinitions {
 
 val dbModule = module {
     single {
-        Room.databaseBuilder(
+        Room.inMemoryDatabaseBuilder(
             androidContext().applicationContext ?: androidContext(),
-            AppDatabase::class.java,
-            "MainDatabase")
+            AppDatabase::class.java)
             .build()
             .launchesDao()
     }
